@@ -42,7 +42,7 @@ INIT_LR = 1e-4
 EPOCHS = 20
 BS = 32
 
-# grab the list of images in our dataset directory, then initialize
+# grab the list of images in our data-set directory, then initialize
 # the list of data (i.e., images) and class images
 print("[INFO] loading images...")
 imagePaths = list(paths.list_images(args["dataset"]))
@@ -54,7 +54,7 @@ for imagePath in imagePaths:
     # extract the class label from the filename
     label = imagePath.split(os.path.sep)[-2]
 
-    # load the input image (224x224) and preprocess it
+    # load the input image (224x224) and pre-process it
     image = load_img(imagePath, target_size=(224, 224))
     image = img_to_array(image)
     image = preprocess_input(image)
