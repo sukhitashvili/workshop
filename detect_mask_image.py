@@ -1,4 +1,3 @@
-
 import argparse
 import logging
 import os
@@ -8,6 +7,7 @@ import numpy as np
 from tensorflow.keras.applications.mobilenet_v2 import preprocess_input
 from tensorflow.keras.models import load_model
 from tensorflow.keras.preprocessing.image import img_to_array
+
 
 # Set logging level
 logging.basicConfig(level=logging.INFO)
@@ -53,23 +53,28 @@ weightsPath = os.path.sep.join([args.get("face"),
                                 "res10_300x300_ssd_iter_140000.caffemodel"])
 net = cv2.dnn.readNet(prototxtPath, weightsPath)
 
+
 # Load the face mask detector model from disk
 logging.info("Loading Face Mask Detector Model...")
 model = load_model(args.get("model"))
+
 
 # Load the input image from disk, clone it, and grab the image spatial dimensions
 image = cv2.imread(args["image"])
 orig = image.copy()
 (h, w) = image.shape[:2]
 
+
 # Construct a blob from the image
 blob = cv2.dnn.blobFromImage(image, 1.0, (300, 300),
                              (104.0, 177.0, 123.0))
+
 
 # Pass the blob through the network and obtain the face detections
 logging.info("Computing Face Detection...")
 net.setInput(blob)
 detections = net.forward()
+
 
 # Iterate over the detections
 for i in range(0, detections.shape[2]):
@@ -114,6 +119,7 @@ for i in range(0, detections.shape[2]):
                       (startX, startY),
                       (endX, endY),
                       color, 2)
+
 
 # Show the output image
 cv2.imshow("Output", image)
