@@ -11,7 +11,6 @@ from tensorflow.keras.applications.mobilenet_v2 import preprocess_input
 from tensorflow.keras.models import load_model
 from tensorflow.keras.preprocessing.image import img_to_array
 
-
 # Set logging level
 logging.basicConfig(level=logging.INFO)
 
@@ -117,7 +116,7 @@ faceNet = cv2.dnn.readNet(prototxtPath, weightsPath)
 
 # Load the face mask detector model from disk
 logging.info("Loading Face Mask Detector Model...")
-maskNet = load_model(args.get("model")
+maskNet = load_model(args.get("model"))
 
 
 # Initialize the video stream and allow the camera sensor to warm up

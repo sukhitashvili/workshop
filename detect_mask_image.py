@@ -8,7 +8,6 @@ from tensorflow.keras.applications.mobilenet_v2 import preprocess_input
 from tensorflow.keras.models import load_model
 from tensorflow.keras.preprocessing.image import img_to_array
 
-
 # Set logging level
 logging.basicConfig(level=logging.INFO)
 
