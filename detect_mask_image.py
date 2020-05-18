@@ -35,7 +35,7 @@ def parse_arguments() -> dict:
     parser.add_argument("-c", "--confidence",
                         type=float,
                         default=0.5,
-                        help="minimum probability to filter weak detections")
+                        help="minimum probability to filter out weak detections")
 
     arguments = vars(parser.parse_args())
     return arguments
@@ -59,12 +59,13 @@ model = load_model(args.get("model"))
 
 
 # Load the input image from disk, clone it, and grab the image spatial dimensions
-image = cv2.imread(args["image"])
+image = cv2.imread(args.get("image"))
 orig = image.copy()
 (h, w) = image.shape[:2]
 
 
 # Construct a blob from the image
+# Resize to (300x300) pixels and perform mean subtraction
 blob = cv2.dnn.blobFromImage(image, 1.0, (300, 300),
                              (104.0, 177.0, 123.0))
 
@@ -81,7 +82,7 @@ for i in range(0, detections.shape[2]):
     confidence = detections[0, 0, i, 2]
 
     # Filter out weak detections by ensuring the confidence is greater than the minimum confidence
-    if confidence > args["confidence"]:
+    if confidence > args.get("confidence"):
         # Compute the (x, y)-coordinates of the bounding box for the object
         box = detections[0, 0, i, 3:7] * np.array([w, h, w, h])
         (startX, startY, endX, endY) = box.astype("int")
@@ -99,11 +100,13 @@ for i in range(0, detections.shape[2]):
         face = preprocess_input(face)
         face = np.expand_dims(face, axis=0)
 
+        # PREDICTION
         # Pass the face through the model to determine if the face has a mask or not
         (mask, withoutMask) = model.predict(face)[0]
 
         # Determine the class label and color we'll use to draw the bounding box and text
         label = "Mask" if mask > withoutMask else "No Mask"
+        # Green color for mask, red color for without_mask
         color = (0, 255, 0) if label == "Mask" else (0, 0, 255)
 
         # Include the probability in the label
@@ -113,7 +116,8 @@ for i in range(0, detections.shape[2]):
         cv2.putText(image,
                     label,
                     (startX, startY - 10),
-                    cv2.FONT_HERSHEY_SIMPLEX, 0.45, color, 2)
+                    cv2.FONT_HERSHEY_SIMPLEX, 0.45,
+                    color, 2)
         cv2.rectangle(image,
                       (startX, startY),
                       (endX, endY),

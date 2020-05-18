@@ -75,12 +75,14 @@ for imagePath in imagePaths:
     # Extract the class label from the filename
     label = imagePath.split(os.path.sep)[-2]
 
-    # Load the input image (224x224) and pre-process it
+    # Resize images to (224x224) pixels
     image = load_img(imagePath, target_size=(224, 224))
+    # Convert into array
     image = img_to_array(image)
+    # Scale pixel intensities to [-1, 1]
     image = preprocess_input(image)
 
-    # Update the data and labels lists
+    # Update pre-processed image and its label into list
     data.append(image)
     labels.append(label)
 
@@ -118,7 +120,8 @@ aug = ImageDataGenerator(
     fill_mode="nearest")
 
 
-# Load the MobileNetV2 network, ensuring the head FC layer sets are left off
+# Load the MobileNetV2 with pre-trained ImageNet weights.
+# Ensuring the head FC layer sets are left off
 baseModel = MobileNetV2(weights="imagenet",
                         include_top=False,
                         input_tensor=Input(shape=(224, 224, 3)))

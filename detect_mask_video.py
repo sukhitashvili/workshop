@@ -19,6 +19,11 @@ def detect_and_predict_mask(frame, faceNet, maskNet) -> tuple:
     """
     Detects faces and predicts if person wear mask or not
 
+    Args:
+        frame - A frame from video stream
+        faceNet - The model to detect faces
+        maskNet - The model to detect faces with mask
+
     Returns:
         Tuple of tuples. Face location coordinates and predicted coordinates
     """
@@ -33,11 +38,15 @@ def detect_and_predict_mask(frame, faceNet, maskNet) -> tuple:
 
     # Initialize our list of faces, their corresponding locations,
     # and the list of predictions from our face mask network
+
+    # ROI
     faces = []
+    # Face locations
     locs = []
+    # Mask/No Mask predictions
     preds = []
 
-    # Loop over the detections
+    # Loop over the face detections
     for i in range(0, detections.shape[2]):
         # Extract the confidence (i.e., probability) associated with the detection
         confidence = detections[0, 0, i, 2]
@@ -72,7 +81,7 @@ def detect_and_predict_mask(frame, faceNet, maskNet) -> tuple:
         # in the above `for` loop
         preds = maskNet.predict(faces)
 
-    # Return a 2-tuple of the face locations and their corresponding locations
+    # Return face bounding-box location and corresponding mask/no mask prediction
     return (locs, preds)
 
 
@@ -98,7 +107,7 @@ def parse_arguments() -> dict:
                         default=0.5,
                         help="minimum probability to filter weak detections")
 
-    arguments = vars(parser).parse_args()
+    arguments = vars(parser.parse_args())
     return arguments
 
 
