@@ -51,7 +51,7 @@ def parse_arguments() -> dict:
                         help="path to output loss/accuracy plot")
     parser.add_argument("-m", "--model",
                         type=str,
-                        default="v2_mask_detector.model",
+                        default="mask_detector.model",
                         help="path to output face mask detector model")
 
     arguments = vars(parser.parse_args())
