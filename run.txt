@@ -2,13 +2,13 @@
 # To run each file, run command one by one in terminal
 
 # Run this for model training
-python train_mask_detector.py --dataset dataset
+python train.py --dataset dataset
 
 # Run this to detect mask on images
-python detect_mask_image.py --image examples/example_01.png
+python test_image.py --image examples/example_01.png
 
 # Run this to detect mask in real time
-python detect_mask_video.py
+python test_video.py
 
 # Convert notebook into HTML
-jupyter nbconvert Notebook_for_Workshop.ipynb --to slides --post serve
+jupyter nbconvert Slides_for_Workshop.ipynb --to slides --post serve
