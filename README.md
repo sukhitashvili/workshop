@@ -1,29 +1,31 @@
 # COVID 19: Detect Face Mask in Real Time
 
-Brief description of the project
+Repo contains slides and code for workshop of DataFest. The slides present convolutional neural networks and code used for model training to detection of face mask on person. 
+
 
 ## Getting Started
 
-The instructions to copy the project and make it up and running
-
-### Prerequisites
-
-What are things you need to install the software and how to install them
+Git clone this repo
 
 ### Installing
 
-A step by step guide that tell you how to get a development env running
+Create conda env and install requirements:
 
+``
+conda create --name workshop python==3.7
+``
+
+``
+conda activate workshop
+``
+
+``
+pip install -r requirements.txt
+``
 ### Examples
 
-One or two working examples
+Run mask detection code: `` python test_video.py``
 
-## Deployment
+# Credits
 
-How to deploy if at all
-
-## Contributing
-
-## License
-
-## Acknowledgements
+Face Mask detection and model training code is taken from nice [tutorial](https://www.pyimagesearch.com/2020/05/04/covid-19-face-mask-detector-with-opencv-keras-tensorflow-and-deep-learning/).
