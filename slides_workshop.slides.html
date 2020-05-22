@@ -9,7 +9,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
 
 
-<title>Slides_for_Workshop slides</title>
+<title>slides_workshop slides</title>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
@@ -13242,7 +13242,11 @@ a.anchor-link {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>One of the most important components of a convolution operation is the kernel (a.k.a filter). It is a small matrix and used for blurring, sharpening, embossing, edge detection, and more.</p>
+<h3 id="Kernel-of-Convolution">Kernel of Convolution<a class="anchor-link" href="#Kernel-of-Convolution">&#182;</a></h3><hr>
+<ul>
+<li>One of the most important components of a convolution operation is the kernel (a.k.a filter). 
+It is a small matrix and used for blurring, sharpening, embossing, edge detection, and more.</li>
+</ul>
 <p><a href="https://bit.ly/36iPv2I">Some well known kernels</a></p>
 
 </div>
@@ -13262,7 +13266,13 @@ a.anchor-link {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>In order to keep the convolution result size the same size as the input, we pad the sequence with zeros to the left and right. Stride is a step, number indicating how much of a jump we want to make between evaluations.</p>
+<h3 id="Padding-and-Stride">Padding and Stride<a class="anchor-link" href="#Padding-and-Stride">&#182;</a></h3><hr>
+<ul>
+<li>In order to keep the convolution result size the same size as the input, we pad the sequence with zeros to the left and right. </li>
+</ul>
+<ul>
+<li>Stride is a step, number indicating how much of a jump we want to make between evaluations.</li>
+</ul>
 
 </div>
 </div>
@@ -13270,6 +13280,7 @@ a.anchor-link {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Padding-and-Stride">Padding and Stride<a class="anchor-link" href="#Padding-and-Stride">&#182;</a></h3><hr>
 <h4 id="Padding-=-1;-Stride-=-2">Padding = 1; Stride = 2<a class="anchor-link" href="#Padding-=-1;-Stride-=-2">&#182;</a></h4><p><img src="images/cnn/1_D_padding_stride.png" height="800" width="800"></p>
 <center>$(0 \times 2) + (1 \times 0) + (3 \times 1) = 3$</center><center>$(3 \times 2) + (3 \times 0) + (0 \times 1) = 6$</center><p><a href="https://medium.com/apache-mxnet/1d-3d-convolutions-explained-with-ms-excel-5f88c0f35941">source</a></p>
 
@@ -13357,7 +13368,46 @@ a.anchor-link {
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h3 id="RGB-Image-Convolution">RGB Image Convolution<a class="anchor-link" href="#RGB-Image-Convolution">&#182;</a></h3><hr>
-<p><img src="images/cnn/moving_kernel_rgb.gif" height="700" width="800"></p>
+<p><img src="images/cnn/moving_kernel_rgb.gif" height="400" width="700"></p>
+
+</div>
+</div>
+</div></section></section><section><section>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Complex-feature-extraction">Complex feature extraction<a class="anchor-link" href="#Complex-feature-extraction">&#182;</a></h3><hr>
+<p>Stacked layer of convolution extract more complex features from layer to layer up to dense layers which then classify input image</p>
+<p><img src="images/cnn/face_features.png" height="900" width="1800"></p>
+
+</div>
+</div>
+</div></section></section><section><section>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Whole-model">Whole model<a class="anchor-link" href="#Whole-model">&#182;</a></h3><hr>
+<h5 id="Note-that:">Note that:<a class="anchor-link" href="#Note-that:">&#182;</a></h5><ul>
+<li>Kernel has the same number of channels as input data;  </li>
+<li>Each convolution layer has several Kernels (64, 128, ect);</li>
+<li>Output of convolutional layer has as many number of channels as many kernels it applied to input data;</li>
+<li>Output of convolutional layer pass through activation function (ReLu, Tanh, ect) and then to the next convolutional layer (or pooling layer first and then to the conv. layer);  </li>
+<li>The process repeats before dense layers are reached. After that dense layers do the classification task on extracted features;
+<img src="images/cnn/stacked_convs.jpg" height="700" width="1800"></li>
+</ul>
+
+</div>
+</div>
+</div></section></section><section><section>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Whole-model">Whole model<a class="anchor-link" href="#Whole-model">&#182;</a></h3><hr>
+<h5 id="Note-that:">Note that:<a class="anchor-link" href="#Note-that:">&#182;</a></h5><ul>
+<li>Data is feeded to the model by batches. For example, if we set batch size to 64 and our dataset consists of 28x28x1 images, we feed to the model tensor of size [64, 28, 28, 1] (in the below image batch size is ignored!);</li>
+<li>Commonly, before dense layer feature maps are flattened by averaging in height and width dimension. Thus feature map of shape [64, 28, 28, 264] becomes [64, 264].
+<img src="images/cnn/whole_model.jpeg" height="100" width="1500"></li>
+</ul>
 
 </div>
 </div>

@@ -11,4 +11,4 @@ python test_image.py --image examples/example_01.png
 python test_video.py
 
 # Convert notebook into HTML
-jupyter nbconvert Slides_for_Workshop.ipynb --to slides --post serve
+jupyter nbconvert slides_workshop.ipynb --to slides --post serve
