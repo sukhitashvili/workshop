@@ -1,6 +1,6 @@
 # COVID 19: Detect Face Mask in Real Time
 
-Repo contains slides and code for workshop of DataFest. The slides present convolutional neural networks and code used for model training to detection of face mask on person. 
+Repo contains slides and code for workshop of DataFestOnline 2020. The slides present convolutional neural networks and code used for model training to detection of face mask on person. 
 
 
 ## Getting Started
